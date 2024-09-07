@@ -1,0 +1,9 @@
+age = 16
+name = "Vlad"
+p = "Holodiuk"
+pt = "Hello World"
+
+print("Ім'я: ", name, type(name))
+print("Прізвище:", p, type(p))
+print("Age:", age, type(age))
+print("Text:", pt, type(pt))
