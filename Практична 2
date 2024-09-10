@@ -1,0 +1,30 @@
+age = 16
+name = "Vlad"
+p = "Holodiuk"
+pt = "Hello World"
+
+print("Ім'я:", name, type(name))
+print("Прізвище:", p, type(p))
+print("Вік:", age, type(age))
+print("Текст:", pt, type(pt))
+
+if type(name) == type(p):
+    print("Ім'я та прізвище мають однаковий тип:", type(name))
+else:
+    print("Ім'я та прізвище мають різні типи")
+
+if type(age) == int:
+    print("Вік має тип:", type(age))
+    if age % 2 == 0:
+        print("Вік є парним")
+    else:
+        print("Вік є непарним")
+
+    list3 = []
+    list3.append(name)
+    list3.append(p)
+    list3.append(pt)
+    print("Список",list3)
+    pri = " ".join(list(pt))
+    list3.append(pri)
+    print(list3)
