@@ -1,0 +1,21 @@
+    #Видаляє дублікати
+def index_duplicates(input_list):
+    #Вертає список назад
+    return list(set(input_list))
+def sort_list(input_list):
+    
+    number = [a for a in input_list if isinstance(a, (int, float))]
+    text = [a for a in input_list if isinstance(a, str)]
+    
+    # Сортірує 
+    number.sort()
+    text.sort()
+ 
+    return number + text
+
+input_list = [1, 2, 3, 4, 5, 6, 3, 4, 5, 7, 6, 5, 4, 3, 4, 5, 4, 3, 'Привіт', 'анаконда']
+unique_list = index_duplicates(input_list)
+sorted_list = sort_list(unique_list)
+#Виводить список 
+print("There are no repeats:", unique_list)
+print("Sorted:", sorted_list)
