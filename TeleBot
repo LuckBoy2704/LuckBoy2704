@@ -1,0 +1,11 @@
+import telebot
+bot = telebot.TeleBot('7775236520:AAH8rMbfpYhNOnlox7-eCGvKO2mbYSmclFA')
+@bot.message_handler(commands = ['start'])
+def start (message):
+    bot.send_message(message.chat.id,'Hello,what is your name?')
+@bot.message_handler()
+def replay(message):
+    for i in range(1):
+     bot.reply_to(message,message.text)
+
+bot.polling(non_stop=True)
