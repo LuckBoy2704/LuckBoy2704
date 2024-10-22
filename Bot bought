@@ -1,0 +1,93 @@
+
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot('7666894807:AAHPmYTRtS0OOwAv1Begxw38oEYIVu2GoYI')
+
+
+def  men_sett (message, text, buttons):
+    keyboard = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    for item in buttons:
+        button = telebot.types.KeyboardButton(item)
+        keyboard.add(button)
+    for t in text:
+        bot.send_message(message.chat.id, t, reply_markup=keyboard)
+
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    men_sett(message=message,text=['Вас вітає бот по продажі системних блоків ',
+             'Чим можу допомогти?'],
+             buttons=['Перейти до меню'])
+
+def exit_program(message):
+    bot.send_message(message.chat.id, 'Гаразд')
+    bot.stop_polling()
+
+
+@bot.message_handler(content_types=['text'])
+def options(message):
+    if message.text == 'Перейти_до_меню':
+        men_sett(message = message,text=['Який системний блок бажаєте?'],buttons=['Ознайомча_інформація '])
+    elif message.text == 'Ознайомча_інформація':
+        men_sett(message=message,text=['Посилання на відео:',
+                'https://www.youtube.com/\
+                watch?v=FB3cXR0qv1I&ab_channel=%D0%92%D1%96%D0%BA%D1%82%D0%BE%D1%80%D0%93%D0%B5%D1%80%D0%B0%D1%81%D0%B8%D0%BC%D1%8E%D0%BA',
+                'https://www.youtube.com/\
+                watch?v=3PA2ITAfAic&ab_channel=%D0%90%D0%BB%D0%BB%D0%B0%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BB%D1%96%D1%97%D0%B2%D0%BD%D0%B0%D0%A1%D0%BE%D1%8F'],
+                 buttons=['Ціна','Характеристика','Моделі','Назад'])
+    elif message.text == 'Ціна':
+        men_sett(message=message,text=['Яка ціна вам підійде?'],
+                 buttons=['Дорогий','Середній','Дешевий','Назад'])
+    elif message.text == 'Дорогий':
+        men_sett(message=message,text=['Вам підіде цей:',
+                'https://hard.rozetka.com.ua/ua/cobra-i124f16s104618642/p424140828/'],
+                buttons=['COBRA Gaming','Назад'])
+    elif message.text == 'Середній':
+        men_sett(message=message,text=['Вам підійде:',
+                'https://hard.rozetka.com.ua/ua/artline_x47v45/p351145002/'],
+                buttons=['ARTLINE Gaming','Назад'])
+    elif message.text == 'Дешевий':
+        men_sett(message=message,text=['Вам підійде:',
+                'https://hard.rozetka.com.ua/ua/cobra_i14f_16_s4_165_12991/p354037245/'],
+                buttons=['COBRA Advanced','Назад'])
+    elif message.text == 'Характеристика':
+        men_sett(message=message,text=['Ознайомча інформація по процесорі: ',
+                'Інформація по відеокарті'],buttons=['Відеокарта','Процесор','Назад'])
+    elif message.text == 'Процесор':
+        men_sett(message=message,text=['https://www.youtube.com/watch?v=yhhKlknVHug&ab_channel=MOYO',
+                'Для загальних навчальних і робочих завдань підійде Intel Core i5 або AMD Ryzen 5.'
+                ' Якщо ваша робота вимагає більш серйозних ресурсів, наприклад, для графічного дизайну або відеомонтажу, розгляньте моделі з Intel Core i7 або AMD Ryzen 7.']
+                ,buttons=['Моделі','Назад'])
+    elif message.text == 'Відеокарта':
+        men_sett(message=message,text=['Інформація: ',
+            'https://introserv.com/ua/blog/priznachennya-videokarti/'
+            'Види відеокарт: ',
+            'https://www.unian.ua/techno/hardware/top-videokart-2024-eksperti-obrali-7-naykrashchih-modeley-na-bud-yakiy-byudzhet-12787374.html'
+            'Призначення'],buttons=['Моделі','Назад'])
+    elif message.text == 'Моделі':
+        men_sett(message=message, text=['Оберіть модель'],
+                buttons=[ 'COBRA Gaming','ARTLINE Gaming','COBRA Advanced','Наявність','Назад'])
+    elif message.text == 'Наявність':
+        men_sett(message=message,text=['В наявності ще буде певний час'],buttons=['Повернутися_до_категорії'])
+    elif message.text == 'COBRA Gaming':
+        men_sett(message=message, text=['Непоганий варіант',
+                'https://hard.rozetka.com.ua/ua/cobra-i124f16s104618642/p424140828/'],buttons=['Назад'])
+    elif message.text == 'ARTLINE Gaming':
+        men_sett(message=message, text=['Непоганий варіант',
+                'https://hard.rozetka.com.ua/ua/artline_x47v45/p351145002/'],
+                buttons=['Назад'])
+    elif message.text == 'COBRA Advanced':
+        men_sett(message=message, text=['Непоганий варіант',
+                'https://hard.rozetka.com.ua/ua/cobra_i14f_16_s4_165_12991/p354037245/'], buttons=['Назад'])
+    elif message.text == 'Назад':
+        men_sett(message=message, text=['Гаразд'],
+                buttons=['Перейти_до_меню','Ознайомча_інформація','Ціна','Характеристика','Моделі','Наявність'])
+    elif message.text == 'Повернутися_до_категорії':
+        men_sett(message=message,text=['Гаразд'],
+                buttons=['Перейти_до_меню','Ознайомча_інформація','Ціна','Характеристики','Моделі','Наявність'])
+        return
+
+
+bot.polling(none_stop=True)
+
