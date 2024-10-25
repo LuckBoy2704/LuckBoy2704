@@ -5,76 +5,71 @@ bot = telebot.TeleBot('7666894807:AAHPmYTRtS0OOwAv1Begxw38oEYIVu2GoYI')
 
 def reading_txt_file(name):
     with open('text', 'r', encoding='utf8') as file:
-        while True:
-            good = file.readline()
-            if not good:
-                return None
-            model, url = good.strip().split(',')
-            if model == name:
+        for good in file:
+            item_name, url = good.strip().split(',')
+            if item_name == name:
                 return url
+    return None
 
-def send_link(message):
+def link(message):
     url = reading_txt_file(message.text)
     if url:
         bot.send_message(message.chat.id, f"Посилання на {message.text}: {url}")
     else:
         bot.send_message(message.chat.id, "Посилання не знайдено.")
-    men_sett(message=message, text=['Непоганий варіант'], buttons=['Назад'])
+    men_sett(message, 'Непоганий варіант', ['Назад'])
 
 def men_sett(message, text, buttons):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     for item in buttons:
         button = types.KeyboardButton(item)
         keyboard.add(button)
-    for top in text:
-        bot.send_message(message.chat.id, top, reply_markup=keyboard)
+    bot.send_message(message.chat.id, text, reply_markup=keyboard)
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    men_sett(message=message, text=['Вас вітає бот по продажі системних блоків',
-                                    'Чим можу допомогти?'], buttons=['Перейти до меню'])
-
-def exit_program(message):
-    bot.send_message(message.chat.id, 'Добре')
-    bot.stop_polling()
+    men_sett(message=message, text='Вас вітає бот по продажі системних блоків\nЧим можу допомогти?',
+             buttons=['Перейти до меню'])
 
 @bot.message_handler(content_types=['text'])
 def options(message):
     if message.text == 'Перейти до меню':
-        men_sett(message=message, text=['Який системний блок бажаєте?'], buttons=['Ознайомча_інформація'])
+        men_sett(message=message, text='Який системний блок бажаєте?', 
+                 buttons=['Ознайомча_інформація'])
     elif message.text == 'Ознайомча_інформація':
-        men_sett(message=message, text=['Посилання на відео:'], buttons=['Ціна', 'Характеристика', 'Моделі', 'Назад'])
+        men_sett(message=message, text='Посилання на відео\n',
+                 buttons=['Ціна', 'Характеристика', 'Моделі', 'Назад'])
     elif message.text == 'Ціна':
-        men_sett(message=message, text=['Яка ціна вам підійде?'], buttons=['Дорогий', 'Середній', 'Дешевий', 'Назад'])
+        men_sett(message=message, text='Яка ціна вам підійде?', 
+                 buttons=['Дорогий', 'Середній', 'Дешевий', 'Назад'])
     elif message.text == 'Дорогий':
-        men_sett(message=message, text=["Підійдуть ці варіанти"], buttons=['COBRA_Gaming', 'AMD Ryzen 5', 'Назад'])
+        men_sett(message=message, text="Підійдуть ці варіанти", 
+                 buttons=['COBRA_Gaming', 'AMD Ryzen 5', 'Назад'])
     elif message.text == 'Середній':
-        men_sett(message=message, text=["Підійдуть ці варіанти"], buttons=['ARTLINE Gaming', 'HP Pro 290', 'Назад'])
+        men_sett(message=message, text="Підійдуть ці варіанти", 
+                 buttons=['ARTLINE Gaming', 'HP Pro 290', 'Назад'])
     elif message.text == 'Дешевий':
-        men_sett(message=message, text=["Підійдуть ці варіанти"], buttons=['COBRA Advanced', 'Tower NEW', 'Назад'])
+        men_sett(message=message, text="Підійдуть ці варіанти",
+                 buttons=['COBRA Advanced', 'Tower NEW', 'Назад'])
     elif message.text == 'Характеристика':
-        men_sett(message=message, text=['Ознайомча інформація по процесорі:', 'Інформація по відеокарті'],
+        men_sett(message=message, text='Інформація по процесорі:\nІнформація по відеокарті',
                  buttons=['Відеокарта', 'Процесор', 'Назад'])
-    elif message.text == 'Процесор':
-        men_sett(message=message, text=[
-            'Для загальних навчальних і робочих завдань підійде Intel Core i5 або AMD Ryzen 5. '
-            'Якщо ваша робота вимагає більш серйозних ресурсів, наприклад, для графічного дизайну або відеомонтажу,'
-            ' розгляньте моделі з Intel Core i7 або AMD Ryzen 7.'], buttons=['Моделі', 'Назад'])
-    elif message.text == 'Відеокарта':
-        men_sett(message=message, text=['Інформація: Види відеокарт:', 'Призначення'], buttons=['Моделі', 'Назад'])
+    elif message.text in ['Процесор', 'Відеокарта']:
+        link(message)
     elif message.text == 'Моделі':
-        men_sett(message=message, text=['Оберіть модель'],
-                 buttons=['COBRA_Gaming', 'ARTLINE Gaming', 'COBRA Advanced',
-                         'AMD Ryzen 5', 'Tower NEW', 'HP Pro 290', 'Наявність', 'Назад'])
+        men_sett(message=message, text='Оберіть модель',
+                 buttons=['COBRA_Gaming', 'ARTLINE Gaming', 'COBRA Advanced', 'AMD Ryzen 5', 
+                          'Tower NEW', 'HP Pro 290', 'Наявність', 'Назад'])
     elif message.text == 'Наявність':
-        men_sett(message=message, text=['В наявності ще буде певний час'], buttons=['Повернутися_до_критерій'])
+        men_sett(message=message, text='В наявності ще буде певний час', 
+                 buttons=['Повернутися_до_критерій'])
     elif message.text in ['COBRA_Gaming', 'ARTLINE Gaming', 'COBRA Advanced', 'AMD Ryzen 5', 'Tower NEW', 'HP Pro 290']:
-        send_link(message)
+        link(message)
     elif message.text == 'Назад':
-        men_sett(message=message, text=['Добре'], buttons=['Перейти до меню', 'Ознайомча_інформація',
-                                                           'Ціна', 'Характеристика', 'Моделі', 'Наявність'])
+        men_sett(message=message, text='Добре',
+                 buttons=['Ознайомча_інформація', 'Ціна', 'Характеристика', 'Моделі', 'Наявність'])
     elif message.text == 'Повернутися_до_критерій':
-        men_sett(message=message, text=['Добре'], buttons=['Перейти до меню', 'Ознайомча_інформація', 'Ціна',
-                                                           'Характеристики', 'Моделі', 'Наявність'])
+        men_sett(message=message, text='Добре', 
+                 buttons=['Ознайомча_інформація', 'Ціна', 'Характеристика', 'Моделі', 'Наявність'])
 
 bot.polling(none_stop=True)
