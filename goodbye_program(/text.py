@@ -1,0 +1,9 @@
+Відео,https://youtu.be/rprQknXBzAE
+Процесор,https://www.youtube.com/watch?v=yhhKlknVHug&ab_channel=MOYO
+Відеокарта,https://www.youtube.com/watch?v=8fPKgzqchKo&ab_channel=%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D0%97%D0%B0%D0%B2%D1%80
+COBRA_Gaming,https://hard.rozetka.com.ua/ua/cobra-i124f16s104618642/p424140828/
+ARTLINE Gaming,https://hard.rozetka.com.ua/ua/artline_x47v45/p351145002/
+COBRA Advanced,https://hard.rozetka.com.ua/ua/cobra_i14f_16_s4_165_12991/p354037245/
+AMD Ryzen 5,https://hard.rozetka.com.ua/ua/364228125/p364228125/
+Tower NEW,https://hard.rozetka.com.ua/ua/404700723/p404700723/
+HP Pro 290,https://hard.rozetka.com.ua/ua/hp-6b2t9ea/p440318000/
