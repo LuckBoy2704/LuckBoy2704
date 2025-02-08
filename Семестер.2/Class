@@ -1,0 +1,29 @@
+from datetime import datetime
+
+class Student:
+    def __init__(self, name=None, lastname=None, birth_year=None):
+        self.name = name
+        self.lastname = lastname
+        self.birth_year = birth_year
+
+    def calculate_course(self):
+        if self.birth_year is None:
+            return None  #Виведе None
+
+        current_year = datetime.now().year
+        age = current_year - self.birth_year
+        course = age - 17
+
+        return course if course > 0 else None  #Виводить None якщо курс не підходить
+
+    def get_full_name(self):
+        return [self.name, self.lastname] if self.name and self.lastname else []
+
+student1 = Student(name="Vlad", lastname="Holodiuk", birth_year=2006)
+print(f"Курс студента 1: {student1.calculate_course()}")
+print(f"ПІБ студента 1: {student1.get_full_name()}")
+
+student2 = Student(name="Oleg",lastname="Lazaryk", birth_year=2005)
+print(f"Курс студента 2: {student2.calculate_course()}")
+print(f"ПІБ студента 2: {student2.get_full_name()}")
+
