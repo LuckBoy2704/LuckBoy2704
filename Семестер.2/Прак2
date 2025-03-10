@@ -1,6 +1,5 @@
 from datetime import datetime
 
-# Базовий клас Student
 class Student:
     def __init__(self, name=None, lastname=None, birth_year=None):
         self.name = name
@@ -15,7 +14,7 @@ class Student:
         age = current_year - self.birth_year
         course = age - 17
 
-        return course if course > 0 else None  # Виводить None, якщо курс не підходить
+        return course if course > 0 else None 
 
     def get_full_name(self):
         return [self.name, self.lastname] if self.name and self.lastname else []
@@ -23,9 +22,9 @@ class Student:
 class AdvancedStudent(Student):
     def __init__(self, name=None, lastname=None, birth_year=None, major=None, gpa=None, graduation_year=None):
         super().__init__(name, lastname, birth_year)
-        self.major = major           # Спеціальність
-        self.gpa = gpa               # Середній бал
-        self.graduation_year = graduation_year  # Рік випуску
+        self.major = major           
+        self.gpa = gpa               
+        self.graduation_year = graduation_year  
 
     def _calculate_expected_graduation(self):
         if self.graduation_year is None:
