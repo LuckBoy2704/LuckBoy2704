@@ -1,8 +1,13 @@
 from django.shortcuts import render
 
+from site_fish.models import Category, Goods
+
+
 def home(request):
-    context = {'page_title': 'Головна '}
-    return render(request, 'home.html', context)
+    context = {'page_title': 'Головна ',
+               'category': Category.objects.all(),
+               'goods': Goods.objects.all(),}
+    return render(request, 'main.html', context)
 
 def places(request):
     context = {'page_title': 'Місця'}

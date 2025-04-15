@@ -1,0 +1,81 @@
+{% extends 'templ.html' %}
+{% load static %}
+{% block header %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Рибалка.ua</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Головна</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url '' %}">Про нас</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Каталог
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for category_item in categories %}
+                            <a class="dropdown-item" href="{% url 'category_detail' category_item.id %}">{{ category_item.name }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock header %}
+{% block content %}
+    <body>
+<section id="home">
+    <div class="card-row">
+        {% for goods in goods %}
+        <div class="card">
+            <img src="{{ goods.image.url }}" class="card-img-top" alt="{{ goods.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ goods.name }}</h5>
+                <p class="card-text">
+                    {{ goods.description|default:"Опис відсутній" }}
+                </p>
+                <p>Ціна: <b>{{ goods.price }} грн</b></p>
+                <a href="{% url 'goods_detail' goods.id %}" class="btn btn-primary">Купити</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock content %}
+    {% block footer %}
+       <footer class="bg-light mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Fish Shop</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <p>Контакти: <a href="https://t.me/your_telegram_username">Telegram</a></p>
+                <p>тел: +38(XXX)XXX-XX-XX</p>
+                <p><a href="mailto:your_email@example.com">Email</a></p>
+                <p class="text-center">&copy; 2025 Рибалка.ua</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

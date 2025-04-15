@@ -55,7 +55,7 @@ ROOT_URLCONF = 'Games.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'templates',BASE_DIR / 'templates/myapp']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -118,6 +118,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = [BASE_DIR / 'static/myapp/css',BASE_DIR / 'static/myapp/image']
+STATICFILES_DIRS = []
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
