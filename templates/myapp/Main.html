@@ -1,0 +1,32 @@
+{% extends 'templ.html' %}
+{% load static %}
+{% block content %}
+    <div class="product-grid py-4">
+        <div class="container">
+            <h3 class="text-center mb-4">Категорія: {{ category.name_ca }}</h3>
+            <div class="row justify-content-center">
+                {% for good in goods_in_category %}
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card product-card h-100 shadow-sm">
+                            <a href="{% url 'goods_detail' good.id %}" class="stretched-link">
+                                 {% if good.image_url.url %}
+                            <img src="{{ good.image_url.url }}" class="card-img-top" style="max-height: 250px; object-fit: cover;" alt="{{ good.name }}" loading="lazy">
+                                {% else %}
+                            <img src="/media/Photo/3899.970.jpg" class="card-img-top" style="max-height: 250px; object-fit: cover;" alt="{{ good.name }}">
+                                {% endif %}
+                                <div class="card-body d-flex flex-column justify-content-between align-items-center text-center">
+                                    <h4 class="card-title mb-2">{{ good.name }}</h4>
+                                    <p class="card-text product-price font-weight-bold mb-3">{{ good.price }} грн</p>
+                                    <a href="{% url 'buy_goods' good.id %}" class="btn btn-success">Купити</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center">У цій категорії поки немає товарів.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <a href ={% url "home" %}><button>Головна</button></a>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends 'templ.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>{{ title }}</h2>
+        <p>Ви замовляєте: {{ goods.name }} - {{ goods.price }} грн.</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} mt-3">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Оформити замовлення</button>
+            <a href="{% url 'goods_detail' goods.id %}" class="btn btn-secondary mt-3">Повернутися до товару</a>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,12 +1,12 @@
 {% extends 'templ.html' %}
 {% load static %}
 {% block header %}
+    <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">Рибалка.ua</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
@@ -14,16 +14,32 @@
                     <a class="nav-link" href="{% url 'home' %}">Головна</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url '' %}">Про нас</a>
+                    <a class="nav-link" href="{% url 'home' %}">Про нас</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Каталог
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Категорії
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% for category_item in categories %}
-                            <a class="dropdown-item" href="{% url 'category_detail' category_item.id %}">{{ category_item.name }}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% for category in categories %}
+                            {% if category.name_ca == "Вудилища" %}
+                                <a class="dropdown-item" href="{% url 'rod' %}">{{ category.name_ca }}</a>
+                            {% elif category.name_ca == "Гачки" %}
+                                <a class="dropdown-item" href="{% url 'hooks' %}">{{ category.name_ca }}</a>
+                            {% elif category.name_ca == "Котушки" %}
+                                <a class="dropdown-item" href="{% url 'reels' %}">{{ category.name_ca }}</a>
+                            {% elif category.name_ca == "Волосінь" %}
+                                <a class="dropdown-item" href="{% url 'volosin' %}">{{ category.name_ca }}</a>
+                            {% elif category.name_ca == "Сингалізатори" %}
+                                <a class="dropdown-item" href="{% url 'singalizers' %}">{{ category.name_ca }}</a>
+                            {% elif category.name_ca == "Наживка" %}
+                                <a class="dropdown-item" href="{% url 'bait' %}">{{ category.name_ca }}</a>
+                            {% elif category.name_ca == "Підсак" %}
+                                <a class="dropdown-item" href="{% url 'podsak' %}">{{ category.name_ca }}</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'category_detail' category.id %}">{{ category.name_ca }}</a>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </li>
@@ -31,35 +47,45 @@
         </div>
     </div>
 </nav>
+    </header>
+
 {% endblock header %}
 {% block content %}
-    <body>
-<section id="home">
-    <div class="card-row">
-        {% for goods in goods %}
-        <div class="card">
-            <img src="{{ goods.image.url }}" class="card-img-top" alt="{{ goods.name }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ goods.name }}</h5>
-                <p class="card-text">
-                    {{ goods.description|default:"Опис відсутній" }}
-                </p>
-                <p>Ціна: <b>{{ goods.price }} грн</b></p>
-                <a href="{% url 'goods_detail' goods.id %}" class="btn btn-primary">Купити</a>
+
+    <div class="product-grid py-4">
+        <div class="container">
+            <h3 class="text-center mb-4">Наші товари</h3>
+            <div class="row justify-content-center">
+                {% for good in goods %}
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card product-card h-100 shadow-sm">
+                            <a href="{% url 'goods_detail' good.id %}" class="stretched-link">
+                               {% if good.image %}
+                            <img src="{{ good.image.url }}" class="card-img-top" style="max-height: 250px; object-fit: cover;" alt="{{ good.name }}" loading="lazy">
+                                {% else %}
+                            <img src="{% static '3899.970.jpg' %}" class="card-img-top" style="max-height: 250px; object-fit: cover;" alt="{{ good.name }}">
+                                {% endif %}
+                                <div class="card-body d-flex flex-column justify-content-between align-items-center text-center">
+                                    <h4 class="card-title mb-2">{{ good.name }}</h4>
+                                    <p class="card-text product-price font-weight-bold mb-3">{{ good.price }} грн</p>
+                                    <a href="{% url 'buy_goods' good.id %}" class="btn btn-success">Купити</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
-</section>
 
 {% endblock content %}
-    {% block footer %}
-       <footer class="bg-light mt-5">
+{% block footer %}
+<footer class="bg-light mt-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-4 mt-4">
                 <div class="card">
-                    <div class="card-body">
+
                         <h5 class="card-title">Fish Shop</h5>
                     </div>
                 </div>
@@ -67,15 +93,15 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <p>Контакти: <a href="https://t.me/your_telegram_username">Telegram</a></p>
-                <p>тел: +38(XXX)XXX-XX-XX</p>
-                <p><a href="mailto:your_email@example.com">Email</a></p>
+                <a></a>Контакти: <a  href="https://t.me/HolodiukVladyslav"> Telegram </a>
+                <p><a href = "tel:+380972062165"> тел.: +38(0972)06-21-65</a></p>
+              <a href ="mailto:golodiukvlad2008@gmail.com">golodiukvlad2008@gmail.com</a>
                 <p class="text-center">&copy; 2025 Рибалка.ua</p>
             </div>
         </div>
-    </div>
+
 </footer>
 {% endblock footer %}
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

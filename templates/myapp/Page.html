@@ -1,0 +1,13 @@
+{% extends "templ.html" %}
+{% block content %}
+    <h1>{{ title }}</h1>
+    <div style="display: flex; align-items: flex-start;">
+        <img src="{{ goods.image_url.url }}" style="width: 400px; height: auto; margin-right: 400px;">
+        <div>
+            <p>{{ goods.name }}</p>
+            <p>{{ goods.description }}</p>
+<a href="{% url 'buy_goods' goods.id %}" class="btn btn-success">Купити</a>
+        </div>
+    </div>
+    <p>Категорія: <a href="{% url 'home' %}">Головна</a></p>
+{% endblock %}
